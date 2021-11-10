@@ -21,6 +21,8 @@ type Address = {
   zipcode: string;
   city: string;
   state: string;
+  lat?: number;
+  long?: number;
 };
 
 type ReverseLocation = {
@@ -96,7 +98,15 @@ const TruckLocation: React.FC = () => {
       street,
     } = response[0];
 
-    setLocation({ city, country, district, name, postalCode, region, street });
+    setLocation({
+      city,
+      country,
+      district,
+      name,
+      postalCode,
+      region,
+      street,
+    });
 
     setCoords({ latitude, longitude });
 
@@ -114,6 +124,8 @@ const TruckLocation: React.FC = () => {
           zipcode: location.postalCode,
           city: location.city,
           state: location.region,
+          lat: coords.latitude,
+          long: coords.longitude,
         })
         .then(async (resp) => {
           setAddress(resp.data);
@@ -132,6 +144,8 @@ const TruckLocation: React.FC = () => {
         zipcode: location.postalCode,
         city: location.city,
         state: location.region,
+        lat: coords.latitude,
+        long: coords.longitude,
       });
 
       await updateTruck(data.id);
@@ -148,7 +162,7 @@ const TruckLocation: React.FC = () => {
 
     setModalVisible(!modalVisible);
     setLocation({} as ReverseLocation);
-  }, [signedTruck, updateTruck, address, modalVisible, toast]);
+  }, [signedTruck, updateTruck, address, modalVisible, toast, coords]);
 
   return (
     <>
