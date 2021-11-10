@@ -1,15 +1,15 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useRNAuth } from "../../hooks/contexts/Auth";
 
 const SignOutButton = () => {
-  const navigation = useNavigation();
+  const { logout } = useRNAuth();
 
   return (
     <TouchableOpacity
       style={styles.button}
       activeOpacity={0.9}
-      onPress={() => navigation.navigate("Login")}
+      onPress={logout}
     >
       <Text style={styles.buttonText}>Sair</Text>
     </TouchableOpacity>
